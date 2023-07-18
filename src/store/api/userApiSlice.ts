@@ -17,9 +17,16 @@ export const userApi = createApi({
         body: { email, password },
       }),
     }),
+    getProfile: builder.query({
+      query: (bearer: string) => ({
+        url: "/user/profile",
+        headers: { Authorization: `Bearer ${bearer}` },
+        method: "POST",
+      }),
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useLoginMutation } = userApi;
+export const { useLoginMutation, useGetProfileQuery } = userApi;
