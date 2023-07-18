@@ -1,11 +1,35 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 export default function SignIn() {
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setLoading(true);
         const form = event.currentTarget;
 
         const dataForm = new FormData(form);
         const formJson = Object.fromEntries(dataForm.entries());
+
+        fetch("http://localhost:3001/api/v1/user/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "accept": "application/json",
+          },
+          body: JSON.stringify(formJson),
+        }).then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            navigate("/user-profile");
+          }
+        }).catch((error) => {
+          console.log(error);
+        }).finally(() => {
+          setLoading(false);
+        });
 
         console.log(formJson);
     };
@@ -16,10 +40,10 @@ export default function SignIn() {
         <h1>Sign In</h1>
         <form onSubmit={handleSubmit} method="post">
           <div className="input-wrapper">
-            <label htmlFor="username">
+            <label htmlFor="email">
                 Username
             </label>
-            <input type="text" name="username" />
+            <input type="text" name="email" />
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
@@ -31,7 +55,7 @@ export default function SignIn() {
                 Remember me
             </label>
           </div>
-          <button type="submit" className="sign-in-button">Sign In</button>
+          <button type="submit" className="sign-in-button">{loading ? "... Loading" : "Sign In"}</button>
         </form>
       </section>
     );
