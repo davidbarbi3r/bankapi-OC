@@ -12,7 +12,7 @@ export default function Profile() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
   const {data, isError, isLoading} = useGetProfileQuery(user.token);
-  const username = `${user.firstName!} ${user.lastName!}`;
+  const username = `${user.firstName ? user.firstName : "Joe"} ${user.lastName ? user.lastName : "Doe"}`;
   const accounts = [
     {
       id: "x8349",
@@ -23,18 +23,18 @@ export default function Profile() {
       amount: 10928.42,
     },
     {
-      id: "x8349",
+      id: "x8367",
       amount: 184.30,
     },
   ]
 
 
   useEffect(() => {
-    if (data) {
+    if (data?.token) {
       const userData = {
         ...user,
-        firstName: data.firstName || "",
-        lastName: data.lastName || "",
+        firstName: data.firstName ? data.firstName : "",
+        lastName: data.lastName ? data.lastName : "",
       };
 
       dispatch(setUser(userData));

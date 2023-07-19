@@ -30,9 +30,25 @@ export const userApi = createApi({
         message: string;
       }) => {return response.body}
     }),
+    updateProfile: builder.mutation({
+      query: (data: IUserState) => ({
+        url: "/user/profile",
+        headers: { Authorization: `Bearer ${data.token}` },
+        method: "PUT",
+        body: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+        },
+      }),
+      transformResponse: (response: {
+        status: 200;
+        body: IUserState;
+        message: string;
+      }) => {return response.body}
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useLoginMutation, useGetProfileQuery } = userApi;
+export const { useLoginMutation, useGetProfileQuery, useUpdateProfileMutation } = userApi;
