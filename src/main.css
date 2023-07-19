@@ -43,8 +43,11 @@ body {
 }
 
 .main-nav i {
+  display: inline-block;
   font-size: 1.5rem;
   margin-right: 0.5rem;
+  width: 33px;
+  height: 33px;
 }
 
 .main-nav a {
@@ -57,8 +60,11 @@ body {
 }
 
 .main-nav-item {
+  display: flex;
+  align-items: center;
   text-decoration: none;
   margin-right: 0.5rem;
+  align-self: center;
 }
 
 .main-nav-item:hover {
@@ -73,6 +79,11 @@ body {
 .main-nav-logo-image {
   max-width: 100%;
   width: 200px;
+}
+
+.main-nav-logged-container {
+  display: flex;
+  align-items: center;
 }
 
 .hero {
@@ -271,6 +282,10 @@ body {
 .header {
   color: #fff;
   margin-bottom: 2rem;
+}
+
+.header h1 {
+  color: #2c3e50;
 }
 
 .transaction-button {

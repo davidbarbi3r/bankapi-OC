@@ -10,8 +10,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/user-profile" element={<Profile />} />
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>
   );

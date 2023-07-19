@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-interface IUserState {
+export interface IUserState {
   username: string;
   email: string;
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   token: string;
 }
 
@@ -26,10 +26,12 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<ILoginPayload>) => {
+    setUser: (state, action: PayloadAction<IUserState>) => {
       state.username = action.payload.email;
       state.email = action.payload.email;
       state.token = action.payload.token;
+      state.firstName = action.payload.firstName || "";
+      state.lastName = action.payload.lastName || "";
     },
     logout: (state) => {
       state.username = "";

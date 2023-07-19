@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { IUserState } from "../userSlice";
 
 export const userApi = createApi({
   // The cache reducer expects to be added at `state.api` (already default - this is optional)
@@ -17,12 +18,17 @@ export const userApi = createApi({
         body: { email, password },
       }),
     }),
-    getProfile: builder.query({
-      query: (bearer: string) => ({
+    getProfile: builder.query<IUserState, string>({
+      query: (bearer) => ({
         url: "/user/profile",
         headers: { Authorization: `Bearer ${bearer}` },
         method: "POST",
       }),
+      transformResponse: (response: {
+        status: 200;
+        body: IUserState;
+        message: string;
+      }) => {return response.body}
     }),
   }),
 });

@@ -28,8 +28,12 @@ export default function SignIn() {
         .unwrap()
         .then((data: { body: {token: string} }) => {
           userPayload.token = data.body.token;
-          dispatch(setUser(userPayload));
-          navigate("/user-profile");
+          dispatch(setUser({
+            ...user,
+            email: userPayload.email,
+            token: userPayload.token,
+          }));
+          navigate("/profile");
         })
         .catch((error) => {
           console.log(error);
@@ -38,8 +42,6 @@ export default function SignIn() {
 
     return;
   };
-
-  console.log(user);
 
   return (
     <section className="sign-in-content">
