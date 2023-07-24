@@ -14,12 +14,12 @@ export default function SignIn() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-
     const dataForm = new FormData(form);
     const formJson = Object.fromEntries(dataForm.entries());
     const userPayload: ILoginPayload = {
       email: dataForm.get("email") as string,
       password: dataForm.get("password") as string,
+      persist: dataForm.get("remember-me") ? true : false,
       token: "",
     };
 

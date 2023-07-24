@@ -4,7 +4,7 @@ import UserHeader from "../components/UserHeader";
 import { useGetProfileQuery } from "../store/api/userApiSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { setUser } from "../store/userSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Account from "../components/Account";
 
 export default function Profile() {
@@ -12,7 +12,7 @@ export default function Profile() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
   const {data, isError, isLoading} = useGetProfileQuery(user.token);
-  const username = `${user.firstName ? user.firstName : "Joe"} ${user.lastName ? user.lastName : "Doe"}`;
+  const [username, setUsername] = useState(`${data?.firstName ? data.firstName : "Joe"} ${data?.lastName ? data.lastName : "Doe"}`);
   const accounts = [
     {
       id: "x8349",
@@ -28,18 +28,16 @@ export default function Profile() {
     },
   ]
 
-
   useEffect(() => {
-    if (data?.token) {
       const userData = {
         ...user,
-        firstName: data.firstName ? data.firstName : "",
-        lastName: data.lastName ? data.lastName : "",
+        firstName: user?.firstName ? user.firstName : data?.firstName,
+        lastName: user?.lastName ? user.lastName : data?.lastName,
       };
 
       dispatch(setUser(userData));
-    }
-  }, [data, dispatch, user]);
+      setUsername(() =>`${user?.firstName ? user.firstName : ""} ${user?.lastName ? user.lastName : ""}`);
+  }, [user, dispatch, data]);
 
   if (!user.token) navigate("/login")
   

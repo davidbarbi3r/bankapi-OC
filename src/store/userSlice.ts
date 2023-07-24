@@ -11,6 +11,7 @@ export interface IUserState {
 export interface ILoginPayload {
   email: string;
   password: string;
+  persist: boolean;
   token: string;
 }
 
@@ -30,8 +31,8 @@ export const userSlice = createSlice({
       state.username = action.payload.email;
       state.email = action.payload.email;
       state.token = action.payload.token;
-      state.firstName = action.payload.firstName || "";
-      state.lastName = action.payload.lastName || "";
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
     },
     logout: (state) => {
       state.username = "";

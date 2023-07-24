@@ -12,6 +12,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<><h1>404</h1><h2>Not Found</h2></>} />
       </Route>
     </Routes>
   );

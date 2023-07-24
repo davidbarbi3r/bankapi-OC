@@ -15,10 +15,6 @@ export default function UserHeader({ userName }: IUserHeader) {
   const [updateProfile, { isLoading, isError }] = useUpdateProfileMutation();
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    console.log(user);
-    }, [user]);
-
   const toggleIsShowUpdateInputs = () => {
     setIsShowUpdateInputs(!isShowUpdateInputs);
   };
@@ -42,9 +38,6 @@ export default function UserHeader({ userName }: IUserHeader) {
       })
       .catch((error) => {
         console.log(error);
-      })
-      .finally(() => {
-        console.log(user);
       });
 
     return;
