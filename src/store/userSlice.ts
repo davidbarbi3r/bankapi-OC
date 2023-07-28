@@ -15,6 +15,15 @@ export interface ILoginPayload {
   token: string;
 }
 
+export interface ITransaction {
+  id: string;
+  amount: number;
+  date: string;
+  description: string;
+  category: string;
+  type: string;
+}
+
 const initialState: IUserState = {
   username: "",
   email: "",
